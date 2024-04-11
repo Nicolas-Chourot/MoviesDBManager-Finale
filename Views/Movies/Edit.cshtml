@@ -1,0 +1,16 @@
+﻿@model MoviesDBManager.Models.Movie
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+@{ Html.RenderPartial("MovieForm"); }
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(function () {
+            initTimeout(300);
+        })
+    </script>
+}

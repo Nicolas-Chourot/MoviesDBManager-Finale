@@ -1,0 +1,42 @@
+﻿@{
+    ViewBag.Title = "UserList";
+}
+
+
+<div class="formLayout">
+    <h2>Liste des usagers</h2>
+    <hr />
+    <div id="UsersListContainer">
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+    $(function () {
+        initTimeout(420);
+        let GetUsersList = new PartialRefresh("@Url.Action("GetUsersList")", "UsersListContainer", 5, UpdateCheckboxChangeCallback);
+
+        function UpdateCheckboxChangeCallback() {
+            // renew checkbox change call back
+            $(".CB_Blocked").change(
+                function () {
+                    let userid = this.id.split('_')[1];
+                    GetUsersList.command("@Url.Action("ChangeUserBlockedStatus")" + "?userid=" + userid + "&blocked=" + this.checked.toString());
+                }
+            );
+            $(".DELETE_USER").click(
+                function () {
+                    let userid = this.id.split('_')[1];
+                    GetUsersList.confirmedCommand(this.title + ' ?', "@Url.Action("Delete")" + "?userid=" + userid);
+                }
+            );
+            $(".promoteUser").click(
+                function () {
+                    let userid = this.id.split('_')[1];
+                    GetUsersList.command("@Url.Action("PromoteUser")" + "?userid=" + userid);
+                }
+            )
+        }
+    })
+    </script>
+}

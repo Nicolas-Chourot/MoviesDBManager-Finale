@@ -1,0 +1,16 @@
+﻿@model MoviesDBManager.Models.Actor
+
+@{
+    ViewBag.Title = "Create";
+}
+
+@{ Html.RenderPartial("ActorForm"); }
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(function () {
+            initTimeout(300);
+        })
+    </script>
+}
